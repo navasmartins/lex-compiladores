@@ -1,14 +1,14 @@
-#define TRUE            1
-#define FALSE           0
-#define TOK_NUM         0 
-#define TOK_OP          1
-#define TOK_PONT        2
-#define SOMA            0
-#define SUB             1
-#define MULT            2
-#define DIV             3
-#define PARESQ          0
-#define PARDIR          1
+#define TRUE              1
+#define FALSE             0
+#define TOK_NUM           0 
+#define TOK_OP            1
+#define TOK_PONT          2
+#define ADICAO            0
+#define SUBTRACAO         1
+#define MULTIPLICACAO     2
+#define DIVISAO           3
+#define PARESQ            0
+#define PARDIR            1
 
 typedef struct{
   int tipo;
@@ -17,15 +17,15 @@ typedef struct{
 
 const char *ops = "+-*/";
 char *codigo;
-int tamanho;
-int pos;
+int length;
+int position;
 
 char le_caractere(void){
   char c;
 
-  if (pos < tamanho) {
-    c = codigo[pos];
-    pos++;
+  if (position < length) {
+    c = codigo[position];
+    position++;
   }
   else
     c = -1;
@@ -37,19 +37,19 @@ int operador(char c){
 
   switch (c) {
   case '+':
-    res = SOMA;
+    res = ADICAO;
     break;
     
   case '-':
-    res = SUB;
+    res = SUBTRACAO;
     break;
 
   case '*':
-    res = MULT;
+    res = MULTIPLICACAO;
     break;
 
   case '/':
-    res = DIV;
+    res = DIVISAO;
     break;
 
   default:
@@ -61,15 +61,15 @@ int operador(char c){
 void analise_lexica(char *prog)
 {
   codigo = prog;
-  tamanho = strlen(codigo);
-  pos = 0;
+  length = strlen(codigo);
+  position = 0;
 }
 
 Token *proximo_token(Token *tok)
 {
   char c;
   char valor[200];
-  int  vpos = 0;
+  int  vposition = 0;
 
   c = le_caractere();
   
@@ -79,16 +79,16 @@ Token *proximo_token(Token *tok)
 
   if (isdigit(c)) {
     tok->tipo = TOK_NUM;
-    valor[vpos++] = c;
+    valor[vposition++] = c;
     c = le_caractere();
     while (isdigit(c)) {
-      valor[vpos++] = c;
+      valor[vposition++] = c;
       c = le_caractere();
     }
 
-    pos--;
+    position--;
 
-    valor[vpos] = '\0';
+    valor[vposition] = '\0';
 
     tok->valor = atoi(valor);
   }
@@ -111,20 +111,20 @@ char *operador_str(int op)
   char *res;
 
   switch (op) {
-  case SOMA:
-    res = "SOMA";
+  case ADICAO:
+    res = "ADICAO";
     break;
 
-  case SUB:
-    res = "SUB";
+  case SUBTRACAO:
+    res = "SUBTRACAO";
     break;
 
-  case MULT:
-    res = "MULT";
+  case MULTIPLICACAO:
+    res = "MULTIPLICACAO";
     break;
 
-  case DIV:
-    res = "DIV";
+  case DIVISAO:
+    res = "DIVISAO";
     break;
 
   default:
@@ -151,7 +151,7 @@ void imprime_token(Token *tok)
     break;
 
   default:
-    printf("TIPO DE TOKEN DESCONHECIOO\n");
+    printf("ESTE TOKEM NAO FOI IDENTIFICADO NA REGRA DESTA LINGUAGEM\n");
   }
 }
 

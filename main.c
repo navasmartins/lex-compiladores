@@ -6,15 +6,15 @@
 
 int main(void){
 	
-  char  entrada[200];
+  char  in[200];
   Token tokenV;
 
   printf("Analisador Lexico - Calculadora\n");
   
   printf("Insira uma expressao aritimetica: \n");
-  fgets(entrada, 200, stdin);
+  fgets(in, 200, stdin);
 
-  analise_lexica(entrada);
+  analise_lexica(in);
 
   printf("\n===== Resultados da Analise=====\n");
 

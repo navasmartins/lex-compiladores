@@ -9,6 +9,7 @@
 #define DIVISAO           3
 #define PARESQ            0
 #define PARDIR            1
+#define ALPHA            404
 
 typedef struct{
   int tipo;
@@ -100,8 +101,13 @@ Token *proximo_token(Token *tok)
     tok->tipo  = TOK_PONT;
     tok->valor = (c == '(' ? PARESQ : PARDIR);
   }
-  else
-    return NULL;
+  else if(isalpha(c)) {
+  	tok->tipo  = ALPHA;
+    tok->valor = c;
+  }
+  else {
+  	return NULL;	
+  }
 
   return tok;
 }
@@ -149,9 +155,9 @@ void imprime_token(Token *tok)
   case TOK_PONT:
     printf("Pontuacao  -- Valor: %s\n", (tok->valor == PARESQ ? "PARESQ" : "PARDIR"));
     break;
-
+    
   default:
-    printf("ESTE TOKEM NAO FOI IDENTIFICADO NA REGRA DESTA LINGUAGEM\n");
+    printf("TOKEM NAO IDENTIFICADO NA REGRA DA LINGUAGEM\n");
   }
 }
 

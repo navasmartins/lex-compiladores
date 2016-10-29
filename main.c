@@ -16,13 +16,13 @@ int main(void){
   arq = fopen("source.txt", "r");
   
   if (!arq) {
-    printf("O arquivo de entrada nÃ£o existe");
+    printf("O arquivo de entrada não existe");
 
     return 0;
   }
 
   while (!feof(arq)) {
-    // lÃª uma linha arquivo de entrada com atÃ© 100 caracteres
+    // lê uma linha arquivo de entrada com até 100 caracteres
     result = fgets(row, 100, arq);
     
     if (result) {
@@ -40,3 +40,4 @@ int main(void){
 
   return 0;
 }
+

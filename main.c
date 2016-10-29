@@ -6,20 +6,34 @@
 
 int main(void){
 	
-  char  in[200];
+  char  row[200], *result;
   Token tokenV;
+  FILE *arq;
+  int countRows = 1;
 
   printf("Analisador Lexico - Calculadora\n");
   
-  printf("Insira uma expressao aritimetica: \n");
-  fgets(in, 200, stdin);
+  arq = fopen("source.txt", "r");
+  
+  if (!arq) {
+    printf("O arquivo de entrada não existe");
 
-  analise_lexica(in);
+    return 0;
+  }
 
-  printf("\n===== Resultados da Analise=====\n");
-
-  while (proximo_token(&tokenV) != NULL) {
-    imprime_token(&tokenV);
+  while (!feof(arq)) {
+    // lê uma linha arquivo de entrada com até 100 caracteres
+    result = fgets(row, 100, arq);
+    
+    if (result) {
+      analise_lexica(row);
+      
+      printf("\n===== Resultados de Analise da linha:%d =====\n", countRows);
+      while (proximo_token(&tokenV) != NULL) {
+        imprime_token(&tokenV);
+      }
+    }
+    countRows++;
   }
 
   printf("\n");
